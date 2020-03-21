@@ -4,15 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ScheduleItemService {
     public static List<ScheduleItem> schedule = new ArrayList<>();
     @Autowired private LocationService service;
-
 
     public static void createScheduleItem(ScheduleItem item) {
         schedule.add(item);
@@ -24,6 +23,12 @@ public class ScheduleItemService {
     }
 
     public Location getAvailableLocation(Date date, Integer nrOfSeats) {
-        return service.getLocationList().get(0);
+        List<Location> SuitableLocations = service.getLocationList()
+                                                  .stream()
+                                                  .filter(location -> location.getNrOfSeats() >= nrOfSeats)
+                                                  .collect(Collectors.toList());
+        return SuitableLocations.get(0);
     }
+
+//        Location availableLocation = SuitableLocations.stream().filter(location -> schedule.co
 }

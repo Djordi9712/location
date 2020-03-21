@@ -6,10 +6,8 @@ import nl.utwente.soa.digital.testing.location.ScheduleItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.PostConstruct;
 import java.util.Date;
-import java.util.List;
+
 
 @RestController
 public class LocationRestController {

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -22,7 +23,7 @@ public class ScheduleItemService {
         return schedule;
     }
 
-    public List<Location> getAvailableLocations() {
-        return service.getLocationList();
+    public Location getAvailableLocation(Date date, Integer nrOfSeats) {
+        return service.getLocationList().get(0);
     }
 }

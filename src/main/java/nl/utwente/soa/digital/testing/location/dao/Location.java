@@ -1,4 +1,4 @@
-package nl.utwente.soa.digital.testing.location;
+package nl.utwente.soa.digital.testing.location.dao;
 
 public class Location {
     private String name;
@@ -25,4 +25,11 @@ public class Location {
         this.nrOfSeats = nrOfSeats;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if(o != null && o instanceof Location) {
+            return ((Location) o).getName().equals(this.name);
+        }
+        return false;
+    }
 }

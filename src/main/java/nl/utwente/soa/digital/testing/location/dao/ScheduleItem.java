@@ -1,4 +1,4 @@
-package nl.utwente.soa.digital.testing.location;
+package nl.utwente.soa.digital.testing.location.dao;
 
 import java.util.Date;
 

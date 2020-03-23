@@ -1,5 +1,7 @@
 package nl.utwente.soa.digital.testing.location;
 
+import nl.utwente.soa.digital.testing.location.dao.Location;
+import nl.utwente.soa.digital.testing.location.services.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -20,7 +20,7 @@ public class LocationRestController {
     private ScheduleItemService service;
 
     @GetMapping(path = "/location")
-    public Location getLocations(@RequestParam(name = "date") @DateTimeFormat(pattern = "dd-MM-yyyy") Date date, @RequestParam(name = "seats") Integer nrOfSeats) {
+    public Location getLocations(@RequestParam(name = "date") @DateTimeFormat(pattern = "yyyy-MM-dd") Date date, @RequestParam(name = "seats") Integer nrOfSeats) {
         System.out.println("GetMapping was called");
         return locService.getAvailableLocation(date, nrOfSeats);
     }

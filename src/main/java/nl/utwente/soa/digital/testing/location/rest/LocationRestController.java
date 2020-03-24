@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
-
 @RestController
 public class LocationRestController {
 
@@ -23,7 +22,7 @@ public class LocationRestController {
     @GetMapping(path = "/location")
     public Location getLocations(@RequestParam(name = "date") @DateTimeFormat(pattern = "dd-MM-yyyy") Date date, @RequestParam(name = "seats") Integer nrOfSeats) {
         System.out.println("GetMapping was called");
-        return service.getAvailableLocation(date, nrOfSeats);
+        return locService.getAvailableLocation(date, nrOfSeats);
     }
 
     @PostMapping(path = "/location/claim")

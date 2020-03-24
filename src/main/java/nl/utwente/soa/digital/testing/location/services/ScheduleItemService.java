@@ -30,23 +30,4 @@ public class ScheduleItemService {
         return ! schedule.stream().filter(item -> item.getDate().equals(date) && item.getLocation().equals(location)).findAny().isPresent();
     }
 
-    public Location getAvailableLocation(Date date, Integer nrOfSeats) {
-        System.out.println("Date" + date);
-        /** Retrieve all Locations with sufficient seats */
-        List<Location> SuitableLocations = service.getLocationList()
-                .stream()
-                .filter(location -> location.getNrOfSeats() >= nrOfSeats)
-                .collect(Collectors.toList());
-
-        List<Location> AvailableLocations = new ArrayList<>();
-
-        /** Check if the location is already reserved  */
-        for (Location location : SuitableLocations) {
-            if (!schedule.stream().filter(item -> item.getLocation().equals(location) && item.getDate().equals(date)).findAny().isPresent()) {
-                AvailableLocations.add(location);
-            }
-        }
-        System.out.println(AvailableLocations.size());
-        return AvailableLocations.stream().findFirst().orElseThrow(() -> new NotFoundException("There is no location with enough seats"));
-    }
 }

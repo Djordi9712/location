@@ -2,14 +2,21 @@ package nl.utwente.soa.digital.testing.location.services;
 
 import nl.utwente.soa.digital.testing.location.dao.Location;
 import nl.utwente.soa.digital.testing.location.exceptions.NotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Service
 public class LocationService {
+
+    @Autowired
+    private ScheduleItemService service;
+
     public static List<Location> locationList = new ArrayList<Location>();
 
     public static List<Location> getLocationList() {
@@ -22,12 +29,38 @@ public class LocationService {
 
     public Location retrieveLocation(Location location) {
         Location loc = locationList.stream()
-                                    .filter(loca -> loca.equals(location))
-                                    .findAny()
-                                    .orElseThrow(() -> new NotFoundException("The location has not been found"));
+                .filter(loca -> loca.equals(location))
+                .findAny()
+                .orElseThrow(() -> new NotFoundException("The location has not been found"));
 
         System.out.println(location.toString());
 
         return loc;
     }
+
+    public Location getAvailableLocation(Date date, Integer nrOfSeats) {
+        System.out.println("Date" + date);
+        System.out.println(service.getSchedule());
+        /** Retrieve all Locations with sufficient seats */
+        List<Location> SuitableLocations = getLocationList()
+                .stream()
+                .filter(location -> location.getNrOfSeats() >= nrOfSeats)
+                .collect(Collectors.toList());
+
+        List<Location> AvailableLocations = new ArrayList<>();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+        /** Check if the location is already reserved  */
+        for (Location location : SuitableLocations) {
+            System.out.println();
+            if (!service.getSchedule().stream()
+                    .filter(item -> item.getLocation().equals(location)
+                            && dateFormat.format(item.getDate()).equals(dateFormat.format(date))).findAny().isPresent()) {
+                AvailableLocations.add(location);
+            }
+        }
+        System.out.println(AvailableLocations.size());
+        return AvailableLocations.stream().findFirst().orElseThrow(() -> new NotFoundException("There is no location available with enough seats"));
+    }
+
 }

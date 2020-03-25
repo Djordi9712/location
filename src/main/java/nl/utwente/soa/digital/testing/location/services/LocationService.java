@@ -48,7 +48,7 @@ public class LocationService {
                 .collect(Collectors.toList());
 
         if (SuitableLocations.isEmpty()) {
-            throw new NotFoundException("There is no location with enough seats");
+            throw new NotFoundException("We do not have a location with enough seats, please get rid of some students.");
         }
 
         List<Location> AvailableLocations = new ArrayList<>();
@@ -64,7 +64,7 @@ public class LocationService {
             }
         }
         System.out.println(AvailableLocations.size());
-        return AvailableLocations.stream().findFirst().orElseThrow(() -> new NotFoundException("There is no location available at this date with enough seats, please try another date"));
+        return AvailableLocations.stream().findFirst().orElseThrow(() -> new NotFoundException("There is no location available at this date with enough seats, please try another date."));
     }
 
 }

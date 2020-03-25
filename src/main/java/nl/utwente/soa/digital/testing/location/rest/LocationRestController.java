@@ -34,7 +34,7 @@ public class LocationRestController {
             service.createScheduleItem(item);
             return item;
         }
-        throw new NotFoundException("The location is unavailable at the specified timeslot");
+        throw new NotFoundException("Oops.. Something went wrong. It seems like this location is not available anymore.");
     }
 }
 

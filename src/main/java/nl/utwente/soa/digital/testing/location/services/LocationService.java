@@ -47,8 +47,12 @@ public class LocationService {
                 .filter(location -> location.getNrOfSeats() >= nrOfSeats)
                 .collect(Collectors.toList());
 
+        if (SuitableLocations.isEmpty()) {
+            throw new NotFoundException("There is no location with enough seats");
+        }
+
         List<Location> AvailableLocations = new ArrayList<>();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
         /** Check if the location is already reserved  */
         for (Location location : SuitableLocations) {
@@ -60,7 +64,7 @@ public class LocationService {
             }
         }
         System.out.println(AvailableLocations.size());
-        return AvailableLocations.stream().findFirst().orElseThrow(() -> new NotFoundException("There is no location available with enough seats"));
+        return AvailableLocations.stream().findFirst().orElseThrow(() -> new NotFoundException("There is no location available at this date with enough seats, please try another date"));
     }
 
 }
